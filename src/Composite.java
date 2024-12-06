@@ -1,6 +1,7 @@
 
 abstract class Expression{
     abstract int evaluate();
+    abstract void accept(ExpVisitor v) throws Exception;
 }
 
 
@@ -10,6 +11,10 @@ class Num extends Expression{
     @Override
     public int evaluate(){
         return this.val;
+    }
+    @Override
+    void accept(ExpVisitor v) throws Exception {
+        v.visit(this);
     }
 }
 
@@ -30,6 +35,10 @@ class Add extends Operator{
         int r = this.right.evaluate();
         return r+l;
     }
+    @Override
+    void accept(ExpVisitor v) throws Exception {
+        v.visit(this);
+    }
 }
 
 class Mul extends Operator{
@@ -39,6 +48,10 @@ class Mul extends Operator{
         int l = this.left.evaluate();
         int r = this.right.evaluate();
         return r*l;
+    }
+    @Override
+    void accept(ExpVisitor v) throws Exception {
+        v.visit(this);
     }
 }
 
